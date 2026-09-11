@@ -2,6 +2,7 @@
 
 **Hình thức:** Bài cá nhân — branch `long`.  
 **Học viên:** Nguyễn Hải Long — longhello2003@gmail.com.  
+**Mã HV:** 2A202602471.  
 **Dự án:** Vinmec Discharge Summary Co-pilot — soạn nháp tóm tắt xuất viện.  
 **Bài toán:** Card #1; bối cảnh giả lập Vin Smart Future.
 

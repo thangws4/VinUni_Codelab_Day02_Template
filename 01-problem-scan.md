@@ -2,6 +2,7 @@
 
 **Hình thức:** Bài cá nhân — branch `long`.  
 **Học viên:** Nguyễn Hải Long — longhello2003@gmail.com.  
+**Mã HV:** 2A202602471.  
 **Bối cảnh:** Lab 02 — AI Product Scoping; vai trò giả lập AI Product Engineer tại Vin Smart Future.
 
 > Các cơ hội phát triển từ inspiration kit và bài nháp có sẵn. Chưa có khảo sát vận hành hoặc dữ liệu nội bộ. Mọi baseline/thời gian là **giả định để scoping**, mọi ngưỡng tương lai là **mục tiêu kiểm chứng**, không phải số liệu thực tế của các đơn vị.

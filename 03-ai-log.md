@@ -2,6 +2,7 @@
 
 **Hình thức:** Bài cá nhân — branch `long`.  
 **Học viên:** Nguyễn Hải Long — longhello2003@gmail.com.  
+**Mã HV:** 2A202602471.  
 **Công cụ trong phiên chỉnh sửa:** Codex.  
 **Bài toán:** Soạn nháp tóm tắt xuất viện Vinmec; bối cảnh giả lập Lab 02.
 
