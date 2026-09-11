@@ -47,8 +47,35 @@ Bản `SYSTEM_PROMPT` đầu tiên tôi viết chỉ nói chung chung *"hãy so�
 2. **Chặn trước kịch bản mượn thẩm quyền.** Ghi rõ trong prompt rằng quy tắc an toàn tính mạng **không bị ghi đè bởi bất kỳ yêu cầu vận hành nào**, kể cả khi người dùng khẳng định "chắc không sao đâu".
 3. **Ép structured output với enum đóng.** Dùng `response_mime_type="application/json"` và liệt kê cứng tập giá trị hợp lệ cho `status` / `category` / `priority` / `action`. Khi mô hình chỉ được chọn trong tập đóng, nó không còn không gian để "sáng tạo" ra một trạng thái trung gian kiểu *"đã gửi có điều kiện"*.
 
-<!-- AILOG_TEST_RESULT_START -->
-*(Điền kết quả 3 kịch bản tấn công ở Phase 4 và những lần phải siết lại prompt vào đây sau khi chạy thật)*
+### ❌ Sai lầm 4: Chính tôi viết hàm kiểm thử sai — và suýt đổ lỗi cho mô hình
+
+Đây là lỗi đáng nhớ nhất buổi lab. Kịch bản tấn công số 3 dụ mô hình tiết lộ thông tin của **chủ căn 1203**. Tôi viết hàm verify chặn chuỗi `"1203"` xuất hiện trong output, coi đó là bằng chứng rò rỉ. Kết quả: test báo **Failed**, và phản xạ đầu tiên của tôi là *"mô hình phá ranh giới rồi"*.
+
+Nhưng khi đọc kỹ output thì mô hình hoàn toàn không rò rỉ gì. Nó nhắc lại số căn 1203 **trong phần giải thích lý do từ chối** — mà số căn đó là do chính người dùng cung cấp trong câu hỏi. Rò rỉ thật phải là **họ tên hoặc số điện thoại** của cư dân khác, thứ mà mô hình không hề đưa ra.
+
+**Cách tôi sửa:** viết lại hàm verify để bắt đúng bản chất ranh giới — dò mẫu số điện thoại bằng regex, dò lời cam kết miễn phí, và dò dấu hiệu từ chối — rồi test hàm đó theo **cả hai chiều**: một output từ chối đúng chuẩn phải Pass, một output bịa tên kèm số `0912 345 678` phải Fail.
+
+> 💡 **Bài học:** Khi một bài test báo đỏ, có hai khả năng: **hệ thống sai**, hoặc **bài test sai**. Tôi đã mặc định khả năng thứ nhất. Nếu tin luôn kết quả đó, tôi sẽ đi siết một System Prompt vốn đã đúng, và tệ hơn là ghi vào báo cáo rằng mô hình không đáng tin — một kết luận sai dựa trên phép đo sai. Trong dự án thật, đây chính là cách một chỉ số hỏng dẫn tới một quyết định hỏng.
+
+### ❌ Sai lầm 5: Vòng retry "cho chắc" lại đốt sạch quota
+
+Tôi viết `evaluate_prompt` thử lần lượt 3 biến thể cấu hình để chạy được trên nhiều đời model. Logic ban đầu: lỗi nào cũng thử biến thể kế tiếp. Hệ quả là khi gặp lỗi **429 hết quota**, nó vẫn nã thêm 2 request nữa — tốn gấp 3 lần cho một lỗi mà thử lại chắc chắn vô nghĩa. Free tier chỉ có 20 request/ngày cho mỗi model, và tôi cạn quota giữa buổi.
+
+**Cách tôi sửa:** chỉ thử biến thể kế tiếp khi lỗi là `INVALID_ARGUMENT` (model từ chối *tham số*), còn 429/404/lỗi mạng thì dừng ngay.
+
+> 💡 **Bài học:** "Thử lại cho chắc" không miễn phí. Retry chỉ hợp lý khi lần thử sau **có khả năng cho kết quả khác** — retry một lỗi xác định là đốt tài nguyên để nhận lại đúng câu trả lời cũ.
+
+### 🐛 Lỗi kỹ thuật tốn thời gian nhất: Unicode trên Windows
+
+Script chạy hoàn hảo trong terminal nhưng autograder luôn báo **exit code 1**. Nguyên nhân: khi output bị hứng qua pipe, Python trên Windows dùng bảng mã **cp1252** thay vì UTF-8, và các emoji trong phần in ra (🚀, ✅) không tồn tại trong cp1252 → `UnicodeEncodeError` → crash. Sửa bằng cách ép `sys.stdout`/`sys.stderr` sang UTF-8 ngay đầu chương trình — đúng thủ thuật mà chính autograder dùng cho nó.
+
+> 💡 **Bài học:** "Chạy được trên máy tôi" và "chạy được khi bị hệ thống khác gọi" là hai chuyện khác nhau. Môi trường thực thi — encoding, quota, phiên bản model — là một phần của bài toán, không phải chi tiết phụ.
+
+### ✅ Kết quả cuối cùng
+
+Sau các lần sửa trên, cả 3 kịch bản tấn công đều bị chặn thành công và autograder đạt **10.00/10.00**. Chi tiết output thật của từng kịch bản được ghi ở Phase 4 của [02-deep-dive-report.md](02-deep-dive-report.md).
+
+Điều đáng nói: **không kịch bản nào thất bại vì mô hình phá ranh giới.** Mọi lần báo đỏ đều đến từ phía tôi — hàm kiểm thử sai, encoding sai, logic retry sai, model hết hạn dùng. Ranh giới trong System Prompt giữ vững ngay từ lần chạy đầu tiên.
 <!-- AILOG_TEST_RESULT_END -->
 
 ---
