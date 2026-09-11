@@ -1,3 +1,9 @@
+# # Họ và tên : Ngô Tiến Dũng
+
+# Mã học viên : 2A202602374
+
+# Email :26ai.dungnt8@vinuni.edu.vn
+
 # 🏗️ Phase 3 — DEEP-DIVE: VinFast Symptom Intake Assistant
 
 > **Bài toán chọn:** Chẩn đoán **sơ bộ** lỗi xe từ mô tả tiếng Việt của khách hàng. Đây là công cụ hỗ trợ tiếp nhận, không phải công cụ chẩn đoán hoặc hướng dẫn sửa xe.
@@ -45,21 +51,21 @@ Tổng thời gian tiếp nhận ước tính: 12–17 phút/ticket.
 
 ### Điểm nghẽn và nguyên nhân gốc
 
-| Điểm nghẽn | Nguyên nhân | Hệ quả vận hành |
-|---|---|---|
+| Điểm nghẽn             | Nguyên nhân                                                                            | Hệ quả vận hành                                         |
+| ---------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | Hiểu mô tả triệu chứng | Khách dùng từ đời thường, thiếu bối cảnh và mô tả cùng một hiện tượng theo nhiều cách. | Hỏi lại nhiều lần, khách chờ lâu, ticket thiếu dữ liệu. |
-| Tra tài liệu kỹ thuật | Tài liệu phụ thuộc dòng xe/phiên bản; nhân viên không phải kỹ thuật viên. | Gán sai nhóm hoặc chuyển vòng giữa CSKH và xưởng. |
-| Nhận biết an toàn | Dấu hiệu rủi ro có thể nằm trong một câu ngắn hoặc bị mô tả mơ hồ. | Nếu xử lý sai có thể ảnh hưởng an toàn và SLA cứu hộ. |
+| Tra tài liệu kỹ thuật  | Tài liệu phụ thuộc dòng xe/phiên bản; nhân viên không phải kỹ thuật viên.              | Gán sai nhóm hoặc chuyển vòng giữa CSKH và xưởng.       |
+| Nhận biết an toàn      | Dấu hiệu rủi ro có thể nằm trong một câu ngắn hoặc bị mô tả mơ hồ.                     | Nếu xử lý sai có thể ảnh hưởng an toàn và SLA cứu hộ.   |
 
 ## 3.2. Problem Statement (6-field) & Metrics
 
-| Field | Nội dung chi tiết |
-|---|---|
-| **1. Actor / Operator** | Nhân viên CSKH và cố vấn dịch vụ VinFast tiếp nhận yêu cầu từ khách hàng; kỹ thuật viên/xưởng là bên nhận phiếu để kiểm tra thực tế. |
-| **2. Current Workflow** | CSKH nhận mô tả từ app, hotline hoặc email; ghi ticket; hỏi thêm dòng xe, VIN, điều kiện xuất hiện, đèn cảnh báo và mức độ an toàn; sau đó tra tài liệu kỹ thuật/lịch sử xe và chuyển cho xưởng, đặt lịch hoặc cứu hộ. Quy trình khoảng 5 bước, 12–17 phút/ticket theo giả định scoping. |
-| **3. Bottleneck** | Mô tả tiếng Việt không có cấu trúc (ví dụ “kêu cụp cụp”, “rung khi chạy”) phải được diễn giải thành triệu chứng kỹ thuật. Bước hỏi lại và tra tài liệu mất 8–12 phút, dễ gán sai nhóm nếu thiếu dòng xe hoặc bối cảnh. |
-| **4. Business Impact** | Tăng thời gian chờ và số lần liên hệ lại của khách; CSKH/cố vấn mất năng suất; kỹ thuật viên nhận phiếu thiếu thông tin. Case bị route sai có thể vi phạm SLA và làm chậm xử lý các case thực sự khẩn cấp. Baseline chi phí, ticket volume và SLA phải được đo trước pilot. |
-| **5. Success Metric** | (1) ≥ **85%** ticket được gán đúng nhóm hệ thống trong top-3 trên tập test có kỹ sư gán nhãn. (2) Median thời gian tiếp nhận ≤ **4 phút/ticket**. (3) ≥ **95%** case chứa dấu hiệu an toàn cao được gắn cờ/chuyển người phụ trách. (4) Tỷ lệ ticket thiếu trường bắt buộc giảm ≥ **40%** so với baseline. |
+| Field                       | Nội dung chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Actor / Operator**     | Nhân viên CSKH và cố vấn dịch vụ VinFast tiếp nhận yêu cầu từ khách hàng; kỹ thuật viên/xưởng là bên nhận phiếu để kiểm tra thực tế.                                                                                                                                                                                                                                                                                                     |
+| **2. Current Workflow**     | CSKH nhận mô tả từ app, hotline hoặc email; ghi ticket; hỏi thêm dòng xe, VIN, điều kiện xuất hiện, đèn cảnh báo và mức độ an toàn; sau đó tra tài liệu kỹ thuật/lịch sử xe và chuyển cho xưởng, đặt lịch hoặc cứu hộ. Quy trình khoảng 5 bước, 12–17 phút/ticket theo giả định scoping.                                                                                                                                                 |
+| **3. Bottleneck**           | Mô tả tiếng Việt không có cấu trúc (ví dụ “kêu cụp cụp”, “rung khi chạy”) phải được diễn giải thành triệu chứng kỹ thuật. Bước hỏi lại và tra tài liệu mất 8–12 phút, dễ gán sai nhóm nếu thiếu dòng xe hoặc bối cảnh.                                                                                                                                                                                                                   |
+| **4. Business Impact**      | Tăng thời gian chờ và số lần liên hệ lại của khách; CSKH/cố vấn mất năng suất; kỹ thuật viên nhận phiếu thiếu thông tin. Case bị route sai có thể vi phạm SLA và làm chậm xử lý các case thực sự khẩn cấp. Baseline chi phí, ticket volume và SLA phải được đo trước pilot.                                                                                                                                                              |
+| **5. Success Metric**       | (1) ≥ **85%** ticket được gán đúng nhóm hệ thống trong top-3 trên tập test có kỹ sư gán nhãn. (2) Median thời gian tiếp nhận ≤ **4 phút/ticket**. (3) ≥ **95%** case chứa dấu hiệu an toàn cao được gắn cờ/chuyển người phụ trách. (4) Tỷ lệ ticket thiếu trường bắt buộc giảm ≥ **40%** so với baseline.                                                                                                                                |
 | **6. Operational Boundary** | AI được đọc nội dung ticket đã được cấp quyền, truy xuất **chỉ** tài liệu kỹ thuật đã phê duyệt theo dòng xe/VIN, trích xuất thông tin, đề xuất tối đa 3 nhóm hệ thống, câu hỏi làm rõ và bản nháp phiếu. AI tuyệt đối không kết luận nguyên nhân cuối cùng, không hướng dẫn người dùng tự sửa, không thay đổi dữ liệu xe, không tự đặt lịch/cứu hộ/gửi tin. Nhân viên CSKH/cố vấn duyệt mọi bản nháp; kỹ thuật viên xác nhận chẩn đoán. |
 
 ### Phạm vi pilot
@@ -120,12 +126,12 @@ Tổng thời gian tiếp nhận ước tính: 12–17 phút/ticket.
 
 ### Guardrails bắt buộc
 
-| Tình huống | Hành vi hệ thống bắt buộc |
-|---|---|
+| Tình huống                                                                        | Hành vi hệ thống bắt buộc                                                                          |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | Có từ khóa/dấu hiệu phanh, lái, pin cao áp, cháy/nóng, va chạm hoặc mất công suất | Dừng gợi ý chẩn đoán; gắn cờ khẩn cấp; hiển thị kịch bản an toàn được phê duyệt; chuyển nhân viên. |
-| Không xác định được dòng xe/VIN hoặc không tìm thấy tài liệu đúng phiên bản | Không suy đoán mã lỗi; yêu cầu bổ sung thông tin hoặc fallback thủ công. |
-| Confidence dưới ngưỡng thử nghiệm | Chỉ hiển thị câu hỏi làm rõ, không đưa nhóm lỗi; yêu cầu review người phụ trách. |
-| Người dùng yêu cầu “bỏ qua phê duyệt” hay hướng dẫn tự sửa | Từ chối; giữ output ở trạng thái `DRAFT_ONLY`. |
+| Không xác định được dòng xe/VIN hoặc không tìm thấy tài liệu đúng phiên bản       | Không suy đoán mã lỗi; yêu cầu bổ sung thông tin hoặc fallback thủ công.                           |
+| Confidence dưới ngưỡng thử nghiệm                                                 | Chỉ hiển thị câu hỏi làm rõ, không đưa nhóm lỗi; yêu cầu review người phụ trách.                   |
+| Người dùng yêu cầu “bỏ qua phê duyệt” hay hướng dẫn tự sửa                        | Từ chối; giữ output ở trạng thái `DRAFT_ONLY`.                                                     |
 
 ---
 

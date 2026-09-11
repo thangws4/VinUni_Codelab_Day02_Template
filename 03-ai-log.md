@@ -1,3 +1,9 @@
+# Họ và tên : Ngô Tiến Dũng
+
+# Mã học viên : 2A202602374
+
+# Email :26ai.dungnt8@vinuni.edu.vn
+
 # 📝 AI Log & Reflection — VinFast Symptom Intake Assistant
 
 ## 1. Mục tiêu sử dụng AI
@@ -8,13 +14,13 @@ Mục tiêu của tôi là làm rõ quy trình hiện tại, tìm bottleneck, ch
 
 ## 2. AI đã hỗ trợ tôi như thế nào
 
-| Hoạt động | Prompt/ý định tôi dùng | AI hỗ trợ được gì | Phần tôi tự quyết định/kiểm tra |
-|---|---|---|---|
-| Brainstorm cơ hội | “Gợi ý các bottleneck trong dịch vụ sau bán hàng xe điện VinFast theo 4 lenses.” | Đề xuất các hướng như triage ticket, tổng hợp ghi chú kỹ thuật, theo dõi tiến độ sửa chữa. | Tôi chỉ giữ các bài toán có workflow rõ và liên quan trực tiếp đến tiếp nhận xe. |
-| Chọn bài toán | “So sánh bài toán nào phù hợp LLM hơn rule-based.” | Chỉ ra rằng mô tả triệu chứng là dữ liệu ngôn ngữ tự do, phù hợp với LLM/RAG hơn việc chỉ dùng từ khóa. | Tôi loại ý tưởng để AI tự chẩn đoán hoặc tự điều phối cứu hộ vì rủi ro an toàn quá cao. |
-| Vẽ workflow | “Mô tả quy trình tiếp nhận lỗi xe hiện tại theo actor, handoff, thời gian và bottleneck.” | Giúp tách quy trình thành 5 bước: nhận yêu cầu, ghi mô tả, hỏi lại, tra tài liệu, tạo phiếu/chuyển xử lý. | Tôi đánh dấu bước hỏi lại và tra tài liệu là bottleneck; mọi mốc thời gian được ghi là giả định cần đo lại. |
-| Thiết kế future flow | “Đề xuất luồng LLM có Human-in-the-loop và fallback cho ticket lỗi xe.” | Gợi ý trích xuất triệu chứng, truy xuất tài liệu theo VIN/dòng xe, tạo top-3 nhóm hệ thống và câu hỏi làm rõ. | Tôi thêm rule an toàn, giới hạn `DRAFT_ONLY` và yêu cầu CSKH/cố vấn duyệt trước khi chuyển phiếu. |
-| Đánh giá tính khả thi | “Đóng vai trò CFO và Operations Lead, phản biện metric, chi phí và lý do rule-based có thể tốt hơn.” | Nhắc tôi về chi phí làm sạch dữ liệu, kiểm soát phiên bản tài liệu kỹ thuật và sự cần thiết của baseline. | Tôi chọn **NOT YET** thay vì GO vì hiện chưa có bằng chứng về dữ liệu sạch, nhãn kỹ thuật và sự sẵn sàng của stakeholder. |
+| Hoạt động             | Prompt/ý định tôi dùng                                                                               | AI hỗ trợ được gì                                                                                             | Phần tôi tự quyết định/kiểm tra                                                                                           |
+| --------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Brainstorm cơ hội     | “Gợi ý các bottleneck trong dịch vụ sau bán hàng xe điện VinFast theo 4 lenses.”                     | Đề xuất các hướng như triage ticket, tổng hợp ghi chú kỹ thuật, theo dõi tiến độ sửa chữa.                    | Tôi chỉ giữ các bài toán có workflow rõ và liên quan trực tiếp đến tiếp nhận xe.                                          |
+| Chọn bài toán         | “So sánh bài toán nào phù hợp LLM hơn rule-based.”                                                   | Chỉ ra rằng mô tả triệu chứng là dữ liệu ngôn ngữ tự do, phù hợp với LLM/RAG hơn việc chỉ dùng từ khóa.       | Tôi loại ý tưởng để AI tự chẩn đoán hoặc tự điều phối cứu hộ vì rủi ro an toàn quá cao.                                   |
+| Vẽ workflow           | “Mô tả quy trình tiếp nhận lỗi xe hiện tại theo actor, handoff, thời gian và bottleneck.”            | Giúp tách quy trình thành 5 bước: nhận yêu cầu, ghi mô tả, hỏi lại, tra tài liệu, tạo phiếu/chuyển xử lý.     | Tôi đánh dấu bước hỏi lại và tra tài liệu là bottleneck; mọi mốc thời gian được ghi là giả định cần đo lại.               |
+| Thiết kế future flow  | “Đề xuất luồng LLM có Human-in-the-loop và fallback cho ticket lỗi xe.”                              | Gợi ý trích xuất triệu chứng, truy xuất tài liệu theo VIN/dòng xe, tạo top-3 nhóm hệ thống và câu hỏi làm rõ. | Tôi thêm rule an toàn, giới hạn `DRAFT_ONLY` và yêu cầu CSKH/cố vấn duyệt trước khi chuyển phiếu.                         |
+| Đánh giá tính khả thi | “Đóng vai trò CFO và Operations Lead, phản biện metric, chi phí và lý do rule-based có thể tốt hơn.” | Nhắc tôi về chi phí làm sạch dữ liệu, kiểm soát phiên bản tài liệu kỹ thuật và sự cần thiết của baseline.     | Tôi chọn **NOT YET** thay vì GO vì hiện chưa có bằng chứng về dữ liệu sạch, nhãn kỹ thuật và sự sẵn sàng của stakeholder. |
 
 ## 3. Một ví dụ AI trả lời chưa phù hợp / có nguy cơ hallucination
 
