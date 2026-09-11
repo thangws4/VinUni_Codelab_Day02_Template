@@ -151,3 +151,4 @@ Khi lựa chọn 1 bài toán để phát triển AI Prototype tại Vin Smart F
 2. **Feasibility (Độ khả thi kỹ thuật):** Có sẵn dữ liệu/API sạch (như GPS, Telematics, EMR, Logs) để mô hình tiêu thụ.
 3. **Safety Boundaries (Ranh giới kiểm soát):** Có thể thiết lập cơ chế Human-in-the-loop (HITL) hoặc Fallback rõ ràng; sai số của AI không gây nguy hiểm tính mạng hoặc vi phạm pháp lý.
 4. **Time-to-Prototype:** Có thể xây dựng bản mẫu kỹ thuật (Prompt Prototype / Streamlit) chứng minh năng lực trong vòng 1-2 tuần.
+
