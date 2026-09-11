@@ -61,48 +61,128 @@ Hãy sử dụng **4 Lenses** dưới đây để quét qua hoạt động vận
 > *"Tôi là AI Engineer tại Vin Smart Future (Vingroup). Tôi đang tìm kiếm các pain point vận hành cụ thể có thể tối ưu bằng AI cho mảng [Chọn một: VinFast / Xanh SM / Vinhomes / Vinmec]. Hãy gợi ý cho tôi 5 quy trình nghiệp vụ thủ công, tốn nhiều thời gian và gây rò rỉ hiệu suất kèm con số thống kê ước tính về tổn thất."*
 
 ### 📝 List bài toán của tôi:
-| # | Subsidiary (VinFast/Xanh SM...) | Lens | Mô tả ngắn bài toán |
+| # | Subsidiary| Lens | Mô tả ngắn bài toán |
 |---|----------------------------------|------|---------------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
+| 1 |Vinfast |After-sales / AI Service Operations |Dự báo và điều phối thời gian sửa chữa/bảo hành. Phản hồi thực tế cho thấy khách phàn nàn xe nằm xưởng lâu, chất lượng xử lý không ổn định và phải chờ kéo dài. Có thể xây Repair Time Prediction + Parts Availability Prediction + Workshop Scheduling để dự báo thời gian hoàn thành và tự động ưu tiên xe. |
+| 2 |Xanh SM |Dispatch / ETA Optimization |ETA và điều phối chuyến chưa ổn định. Review cho thấy app có trường hợp hiển thị tài xế ở vị trí không chính xác; có phản ánh chuyến đặt trước bị hủy sát giờ và hệ thống không tự điều hướng lại. Đây là bài toán ETA Prediction + Driver Dispatch + Cancellation Prediction. |
+| 3 |Vinhomes |Resident Operations / Service Management |Xử lý yêu cầu cư dân và sự cố trên Vinhomes Resident chưa hiệu quả. Review gần đây phản ánh app lỗi thanh toán, đặt tiện ích, intercom, load dữ liệu và khó liên hệ hỗ trợ. Có thể xây AI Ticket Classification + Root Cause Detection + Auto-routing + SLA Prediction, giúp ticket được phân loại và chuyển đúng bộ phận ngay từ đầu.|
+| 4 |Vinmec |Patient Journey / Care Coordination |Điều phối quy trình khám còn nhiều bước thủ công, dễ khiến bệnh nhân đi vòng và chờ/được hướng dẫn không nhất quán. Một review tháng 8/2026 phản ánh bệnh nhân đăng ký tầm soát nhưng khi đến viện phải đi khám “lòng vòng”, tốn thêm chi phí và phải chủ động hỏi mới được giải thích kết quả. Quy trình chính thức của Vinmec cũng gồm nhiều bước: tiếp nhận → kiểm tra đặt hẹn → mở hồ sơ → khám → thanh toán → xét nghiệm/thuốc... Có thể dùng AI Patient Journey Orchestrator để tự động kiểm tra lịch, chỉ định, kết quả và hướng dẫn bước tiếp theo.|
+| 5 |Vinpearl |Guest Experience / Service Management |Dịch vụ tại chỗ chưa đồng đều, tương tác với nhân viên chủ yếu qua chatbot AI nhưng đôi khi không hiệu quả, dẫn đến phản hồi tiêu cực từ khách. Một review gần đây cho thấy chatbot không giải quyết được vấn đề của khách dẫn đến tình huống dở khóc dở cười. Đây là bài toán Hotel Service Agent kết hợp LLM + Tool Calling để xử lý các yêu cầu từ khách (booking, tiện ích, đổi phòng...) và giảm tải cho nhân viên.|
 
 ---
 
 # 🃏 Phase 2 — QUICK-ASSESS (Cá nhân, 30 min)
 
-Chọn **top 3 bài toán** từ danh sách trên và hoàn thiện **3 Quick Problem Cards** dưới đây (10 phút/card).
-
+Chọn top 3 từ danh sách scan #1 VinFast, #2 Xanh SM, #5 Vinpearl
 ```
+
+┌──────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #02                                       │
+│                                                              │
+│ Bài toán (1 câu):                                            │
+│ Giảm thời gian chờ và tỷ lệ hủy chuyến bằng ETA Prediction   │
+│ và Driver Dispatch Optimization.                             │
+│                                                              │
+│ Công ty thành viên: [✓] Xanh SM                              │
+│                                                              │
+│ Ai đang đau (Actor)?                                         │
+│ Dispatcher / Customer / Driver                               │
+│                                                              │
+│ Workflow thủ công hiện tại:                                  │
+│ 1. Khách đặt chuyến                                          │
+│      ↓                                                       │
+│ 2. Hệ thống tìm tài xế                                       │
+│      ↓                                                       │
+│ 3. Tài xế nhận chuyến                                        │
+│      ↓                                                       │
+│ 4. Tài xế di chuyển đến điểm đón                             │
+│      ↓                                                       │
+│ 5. Hoàn thành chuyến                                         │
+│                                                              │
+│ Bước nào tốn thời gian/lỗi nhất?                             │
+│ Matching + ETA prediction                                    │
+│                                                              │
+│ AI có thể nhảy vào hỗ trợ ở bước nào?                        │
+│ Bước 2-3: ETA Prediction + Dispatch Optimization             │
+│                                                              │
+│ Đo thành công bằng gì?                                       │
+│ Pickup ETA MAE ↓ 20%                                         │
+│ Cancellation Rate ↓ 10%                                      │
+│ Average Waiting Time ↓ 15%                                   │
+│ Driver Utilization ↑ 5%                                      │
+│                                                              │
+│ Quick Architecture: [ ] No AI [ ] Rule [✓] ML/Optimization   │
+│                       [ ] LLM [ ] Agent                      │
+└──────────────────────────────────────────────────────────────┘
+
 ┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #___                                     │
+│ QUICK PROBLEM CARD #2                                       │
 │                                                             │
-│ Bài toán (1 câu): ________________________________________  │
-│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes  │
-│                     [ ] Vinmec   [ ] Khác (Ghi rõ)________  │
+│ Bài toán (1 câu): Giảm thời gian chờ và tỷ lệ hủy chuyến    │
+│ bằng ETA Prediction và Driver Dispatch Optimization.        │
+│ Công ty thành viên: Xanh SM                                 │   
 │                                                             │
-│ Ai đang đau (Actor)? ______________________________________ │
+│ Ai đang đau (Actor)? Khách hàng, điều phối viên và tài xế   │
 │                                                             │
 │ Workflow thủ công hiện tại (3-5 bước):                      │
-│   1. ___ ──> 2. ___ ──> 3. ___ ──> 4. ___                   │
+│   1. Khách hàng yêu cầu chuyến xe qua App Xanh SM           │
+│   2. Hệ thống điều phối tài xế gần nhất đón khách           │
+│   3. Tài xế đến điểm đón                                    │
+│   4. Khách hàng hủy chuyến nếu tài xế không đến kịp thời    │
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? ___ (⏱ ___ phút/lượt)      │
-│ AI có thể nhảy vào hỗ trợ ở bước nào? _____________________ │
+│ Bước nào tốn thời gian/lỗi nhất? 4 (⏱ 10 phút/lượt)         │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2 & 4            │
 │                                                             │
-│ Đo thành công bằng gì (Metric có số)? ______________________ │
-│   VD: "Giảm thời gian soạn phản hồi từ 10 min ──> under 2 min"│
+│ Đo thành công bằng gì (Metric có số)? _________________     │
+│   Pickup ETA MAE ↓ 20%                                      │
+│ Cancellation Rate ↓ 10%                                     │
+│ Average Waiting Time ↓ 15%                                  │
+│ Driver Utilization ↑ 5%                                     │
 │                                                             │
-│ Quick Architecture: [ ] No AI  [ ] Rule  [ ] LLM  [ ] Agent │
+│ Quick Architecture: [ ] No AI  [x] Rule  [ ] LLM  [ ] Agent │
 └─────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #05                                       │
+│                                                              │
+│ Bài toán (1 câu):                                            │
+│ Tự động xử lý các yêu cầu dịch vụ phổ biến của khách         │
+│ Vinpearl nhưng vẫn kiểm soát được các trường hợp ngoại lệ.   │
+│                                                              │
+│ Công ty thành viên: [✓] Khác: Vinpearl                       │
+│                                                              │
+│ Ai đang đau (Actor)?                                         │
+│ Guest Service / Front Office / Concierge / Guest             │
+│                                                              │
+│ Workflow thủ công hiện tại:                                  │
+│ 1. Khách gửi yêu cầu                                         │
+│      ↓                                                       │
+│ 2. Nhân viên đọc yêu cầu                                     │
+│      ↓                                                       │
+│ 3. Kiểm tra booking / phòng / dịch vụ                        │
+│      ↓                                                       │
+│ 4. Thực hiện hoặc chuyển bộ phận                             │
+│      ↓                                                       │
+│ 5. Xác nhận với khách                                        │
+│                                                              │
+│ Bước nào tốn thời gian/lỗi nhất?                             │
+│ Tra cứu thông tin + xử lý yêu cầu lặp lại                    │
+│                                                              │
+│ AI có thể nhảy vào hỗ trợ ở bước nào?                        │
+│ Bước 2-4: LLM + Tool Calling                                 │
+│                                                              │
+│ Đo thành công bằng gì?                                       │
+│ Automated Resolution Rate ≥ 60%                              │
+│ Average Handling Time ↓ 50%                                  │
+│ Human Escalation Rate ↓ 30%                                  │
+│ Guest Response Time < 30 sec                                 │
+│                                                              │
+│ Quick Architecture: [ ] No AI [ ] Rule [✓] LLM + Tools       │
+│                       [ ] Agent                              │
+└──────────────────────────────────────────────────────────────┘
+
 ```
-
-> [!TIP]
-> **🤖 AI Prompts — Stress-Test thẻ bài toán:**
-> Hãy dán nội dung thẻ bài toán của bạn vào LLM để nhận phản biện:
-> *"Đây là một thẻ bài toán vận hành tôi đề xuất cho Vin Smart Future: [Dán nội dung]. Hãy đóng vai trò là một CFO và Trưởng phòng Vận hành cực kỳ khắt khe, chỉ ra cho tôi 3 điểm yếu về logic, metric, và giải thích vì sao rule-based code thông thường có thể giải quyết bài toán này tốt hơn là dùng AI."*
-
+> Xanh SM có bài toán điều phối tài xế và dự báo ETA. Khi khách đặt xe, hệ thống cần lựa chọn tài xế phù hợp nhất dựa trên vị trí, traffic, trạng thái tài xế, nhu cầu khu vực và xác suất hủy chuyến. Tôi đề xuất kết hợp ETA Prediction với Dispatch Optimization để giảm thời gian chờ, giảm cancellation và tăng số chuyến hoàn thành trên mỗi giờ tài xế. Khác với các bài toán FAQ hoặc ticket routing, đây là bài toán có tính biến động cao nên AI/ML tạo giá trị rõ ràng hơn rule-based.
 ---
 
 # 🏗️ Phase 3 — DEEP-DIVE (Nhóm, 85 min)
